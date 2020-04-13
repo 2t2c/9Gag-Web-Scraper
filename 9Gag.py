@@ -10,7 +10,7 @@ user_agent = {"User-Agent": "Mozilla/5.0 "
                             "AppleWebKit/537.36 (KHTML, like Gecko) "
                             "Chrome/80.0.3987.163 Safari/537.36"}
 
-driver = webdriver.Chrome(r"C:\Users\Udit\Downloads\chromedriver.exe")
+driver = webdriver.Chrome(r"C:\Users\User\Downloads\chromedriver.exe")
 
 # data = input("Search: ")
 # n = int(input("Number: "))
@@ -78,10 +78,10 @@ for i in range(len(LINKS)):
     print(LINKS[i])
     download = requests.get(LINKS[i])
     if LINKS[i].find(".mp4") > 1:
-        with open("C:/Users/Udit/Downloads/Memes/Meme{}.mp4".format(i), "wb") as file:
+        with open("C:/Users/User/Downloads/Memes/Meme{}.mp4".format(i), "wb") as file:
             file.write(download.content)
     else:
-        with open("C:/Users/Udit/Downloads/Memes/Meme{}.jpg".format(i), "wb") as file:
+        with open("C:/Users/User/Downloads/Memes/Meme{}.jpg".format(i), "wb") as file:
             file.write(download.content)
 
     print()
