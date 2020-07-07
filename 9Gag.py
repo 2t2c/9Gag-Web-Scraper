@@ -19,12 +19,30 @@ driver = webdriver.Chrome(r"C:\Users\User\Downloads\chromedriver.exe")
 url1 = 'https://9gag.com/hot'
 
 driver.get(url1)
-
-
 print("Search URL:",url1, "\n")
 
+SCROLL_PAUSE_TIME = 5
+
+# Get scroll height
+last_height = driver.execute_script("return document.body.scrollHeight")
+flag = 5
+while (flag>0):
+    # Scroll down to bottom
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    # Wait to load page
+    time.sleep(SCROLL_PAUSE_TIME)
+    flag = flag - 1
+    print(flag)
+
+    # Calculate new scroll height and compare with last scroll height
+    new_height = driver.execute_script("return document.body.scrollHeight")
+    if new_height == last_height:
+        break
+    last_height = new_height
+
 # driver.execute_script("window.scrollBy(0, document.body.scrollHeight)","")
-time.sleep(10)
+# time.sleep(10)
 source = driver.execute_script("return document.documentElement.outerHTML")
 driver.quit()
 
