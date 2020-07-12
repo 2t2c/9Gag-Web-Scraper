@@ -19,6 +19,7 @@ driver = webdriver.Chrome(r"C:\Users\User\Downloads\chromedriver.exe")
 url1 = 'https://9gag.com/hot'
 
 driver.get(url1)
+
 print("Search URL:",url1, "\n")
 
 SCROLL_PAUSE_TIME = 5
@@ -56,11 +57,16 @@ TITLE = []
 MEDIA = []
 LINKS = []
 
-for media in soup.findAll("div",class_= "post-container"):
-    # print(media,"\n")
-    # print(media.source["type"],"\n")
+for media in soup.findAll("div", class_="post-container"):
+    # print(media.source,"\n")
+    # try:
+    #     print('Type: ', media.source.get('type'))
+    #     print('Image: ', media.source.get('srcset'))
+    #     print('Video: ',media.source.get('src'),"\n")
+    # except:
+    #     pass
     try:
-        video = str(media.source["type"])
+        video = str(media.source.get('type'))
         video = video.split(";")[0]
         diff = str(media)
 
@@ -69,27 +75,38 @@ for media in soup.findAll("div",class_= "post-container"):
         else:
             flag = 0
 
-        image = media.source["type"]
+        image = media.source.get('type')
         # print(video, "\n")
         # print(image, "\n")
-    except: pass
+    except:
+        pass
 
     if video == "video/mp4":
-        # print(media.source["src"], "\n")
-        video_link = media.source["src"]
+        # print(media.source.get("src"), "\n")
+        try:
+            video_link = media.source.get('src')
+        except:
+            pass
 
         if video_link not in LINKS:
             LINKS.append(video_link)
-        else: pass
+        else:
+            pass
 
     if image == "image/webp" and flag == 1:
-        # print(media.img["src"], "\n")
-        image_link = media.img["src"]
+        # print(media.img.get("src"), "\n")
+        try:
+            image_link = media.source.get('srcset')
+        except:
+            pass
 
         if image_link not in LINKS:
             LINKS.append(image_link)
-        else:pass
-    else: pass
+        else:
+            pass
+
+    else:
+        pass
 
 
 for i in range(len(LINKS)):
@@ -103,12 +120,3 @@ for i in range(len(LINKS)):
             file.write(download.content)
 
     print()
-
-
-
-
-
-
-
-
-
